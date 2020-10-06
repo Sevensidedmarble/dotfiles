@@ -23,7 +23,7 @@ set autoread
 set autowriteall
 set gdefault
 set inccommand=split
-set grepprg=rg\ --no-heading\ --vimgrep
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 set grepformat=%f:%l:%c:%m
 set synmaxcol=1500
 set nobackup
@@ -215,6 +215,10 @@ nmap ga <Plug>(EasyAlign)
 
 "" Commenting and Auto close pairs {{{
 Plug 'tomtom/tcomment_vim'
+" Plug 'tyru/caw.vim'
+" Plug 'suy/vim-context-commentstring'
+" Plug 'tpope/vim-commentary'
+
 Plug 'tmsvg/pear-tree'
 let g:pear_tree_repeatable_expand=0
 let g:pear_tree_map_special_keys=0
@@ -245,32 +249,17 @@ augroup fern-custom
   autocmd FileType fern call s:init_fern()
 augroup END
 
-" function! s:OpenDrawer() abort
-"   if &modifiable && filereadable(expand('%'))
-"     execute printf('FernDo -stay FernReveal %s', fnameescape(expand('%:p')))
-"   endif
-" endfunction
-"
-" autocmd BufEnter * call s:OpenDrawer()
-
-" function! OpenDrawer()
-"   if &modifiable
-"     execute "FernDo -stay FernReveal " . @%
-"   endif
-" endfunction
-
 function! s:OpenDrawer() abort
   if &modifiable && filereadable(expand('%'))
-    echom printf('FernDo -stay FernReveal %s', fnameescape(expand('%:p')))
+    execute printf('FernDo -stay FernReveal %s', fnameescape(expand('%:p')))
   endif
 endfunction
 
 autocmd BufEnter * call s:OpenDrawer()
-
-" autocmd BufEnter * :call OpenDrawer()
 " }}}
 
 "" Substitution & Abreviation {{{
+Plug 'lambdalisue/reword.vim'
 Plug 'svermeulen/vim-subversive'
 nmap s <plug>(SubversiveSubstitute)
 nmap ss <plug>(SubversiveSubstituteLine)
